@@ -16,7 +16,7 @@ class LCD
     @dis.text("      per linia     ",3)
     sleep(5)
     @dis.clear
-
+    #This message will be shown on the display for a couple of seconds and then it will disapear, it's just a little test to be sure that the LCD works properl
   end
 
   def lect_teclat
@@ -36,6 +36,7 @@ class LCD
     end
   end
 end 
+
 # Example of main: first we create a LCD object, then it will show us the previous messages of text_inicial function and finally we will be able to write on our shell 
 # whatever we want and it will be shown on the display 
 lcd1 = LCD.new()
