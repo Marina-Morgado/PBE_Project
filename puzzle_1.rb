@@ -1,9 +1,10 @@
 require "i2c/drivers/ss1602"
 
+#creating LCD class for our 20x04 LCD
 class LCD
   def initialize
     @dis = I2C::Drivers::SS1602::Display.new("/dev/i2c-1", 0x27)
-    @m = 4
+    @m = 4  #number of rows of the display
     @n = []
   end
 
@@ -34,8 +35,9 @@ class LCD
       end
     end
   end
-end
-
+end 
+# Example of main: first we create a LCD object, then it will show us the previous messages of text_inicial function and finally we will be able to write on our shell 
+# whatever we want and it will be shown on the display 
 lcd1 = LCD.new()
 lcd1.text_inicial()
 lcd1.lect_teclat()
