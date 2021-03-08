@@ -4,8 +4,8 @@ require "i2c/drivers/ss1602"
 class LCD
   def initialize
     @dis = I2C::Drivers::SS1602::Display.new("/dev/i2c-1", 0x27)
-    @m = @dis.rows()  #number of rows of the display
-    @n = []
+    @m = @dis.rows()  #number of rows of the display that has been set up on the display.rb file
+    @n = []   #array
   end
 
   def text_inicial
@@ -20,17 +20,18 @@ class LCD
   end
 
   def lect_teclat
-    for i in (0..(@m - 1))
+    for i in (0..(@m - 1)) #we run from row 0..3 of the LCD Display
       begin
-        line = gets.chomp
-        if line
+        line = gets.chomp  #line variable saves each line we write (gets method) until \n but we don't store it (chomp function)
+       #if line exists then we store each character inside the array 
+        if line            
           @n.push(line)
         end
       rescue EOFError
         break
       end
       @dis.clear
-      for i in (0..@n.length() - 1)
+      for i in (0..@n.length() - 1) #we run @n array to place on our display each character that we have written on the shell 
         @dis.text(@n[i], i)
       end
     end
