@@ -4,7 +4,7 @@ require "i2c/drivers/ss1602"
 class LCD
   def initialize
     @dis = I2C::Drivers::SS1602::Display.new("/dev/i2c-1", 0x27)
-    @m = 4  #number of rows of the display
+    @m = @dis.rows()  #number of rows of the display
     @n = []
   end
 
