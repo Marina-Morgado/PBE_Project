@@ -20,8 +20,8 @@ module I2C
             @device = BusDevice.new(I2C.create(bus_or_bus_name), device_address)
           end
 
-          @rows = 4
-          @cols = 20
+          @rows = 4  # it has been modified from the original gem
+          @cols = 20 # it has been modified from the original gem
 
           init_sequence
 
@@ -39,9 +39,9 @@ module I2C
             write(0x80)
           when 1
             write(0xC0)
-	  when 2
+	  when 2		#it has been added from the original gem
 	    write(0x94)
-	  when 3
+	  when 3		#it has been added from the original gem
 	    write(0xD4)
           else
             raise "Only rows #{0..(@rows - 1)} are supported"
