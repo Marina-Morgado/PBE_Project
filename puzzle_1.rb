@@ -36,6 +36,7 @@ class LCD
   end
 
 def mostrar_IP
+    
     #Improvements from the main program
     ip = Socket.ip_address_list[1].ip_address 
     wireless = `iwgetid -r`
@@ -46,9 +47,18 @@ def mostrar_IP
     @dis.text(ip,3)
     sleep(5)
     @dis.clear
+   
     s = Socket.getaddrinfo('www.upc.edu', 'http') #Returns an array of arrays. Each subarray contains the address family, port number, host name, host IP address, protocol family, socket type, and protocol.
-    @dis.text("IP Address UPC: ",0) # I've just focused on the host IP Address 
-    @dis.text(s[0][3],1)
+    @dis.text("This IP Address: ",0) # I've just focused on the host IP Address 
+    @dis.text(s[0][3],1) #getaddrinfo provides many information but I just wanted the IP Address so I accessed where it was located that's the main reason why I access to [0][3] position
+    sleep(1)
+    
+    @dis.text("Corresponds to: ",2)
+    a = Socket.gethostbyname("147.83.2.135")  #this method provides a four-element array containing the host name, a subarray of host aliases, the address family, and the address portion of the sockaddr structure
+    
+    #this function returns an array with the host name, address family, and sockaddr component for the given address but I just wanted to get the host name to emphasize that the IP Address we've obtained before was correct
+    url = Socket.gethostbyaddr[0](a[3], a[2]) #I access the first position of the array to get just the host name
+    @dis.text(url,3) 
   end  
  end 
 
@@ -56,3 +66,4 @@ def mostrar_IP
 # whatever we want and it will be shown on the display 
 lcd1 = LCD.new()
 lcd1.lect_teclat()
+lcd1.mostrar_IP()
