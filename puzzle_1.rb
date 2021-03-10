@@ -38,13 +38,13 @@ class LCD
 def mostrar_IP
     
     #Improvements from the main program
-    ip = Socket.ip_address_list[1].ip_address 
-    wireless = `iwgetid -r`
+    ip_add = Socket.ip_address_list[1].ip_address #it provides us an array with all the local IP addresses, but I just wanted the Rpi one.
+    wireless = `iwgetid -r` #withe the following command I can get the WiFi's name. 
     @dis.text("Xarxa: ", 0)
     @dis.text(wireless, 1)
     sleep(1)
     @dis.text("IP Address RPi3: ", 2)
-    @dis.text(ip,3)
+    @dis.text(ip_add,3)
     sleep(5)
     @dis.clear
    
