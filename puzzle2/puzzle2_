@@ -8,60 +8,95 @@ def clear
 end
 
 def window
+
 	#creating window
 	window = Gtk::Window.new("TextView")
+	
+	#setting window position
 	window.set_window_position Gtk::WindowPosition::CENTER
+	
+	#setting window size
 	window.set_size_request(300, 200)
+	
+	#setting window border width
 	window.set_border_width(10)
 	
+	#creating a vertical box 
 	box = Gtk::Box.new(:vertical, 0)
 
-	
+	#cerating textview
 	textview = Gtk::TextView.new
+	
+	#allowing to write on it
 	textview.editable =  true
+	
+	#setting margins of textview
 	textview.left_margin = 8
 	textview.right_margin = 8
+	
+	#initial text before we write something on it
 	textview.buffer.text = ""
+	
+	#setting textview size
 	textview.set_size_request 50, 75 
+	
+	#allowing a visible cursor on textview
 	textview.cursor_visible =  true
-	textview.pixels_above_lines = 10
-	textview.pixels_below_lines = 10
+	
+	#setting distance between above and below lines
+	textview.pixels_above_lines = 4
+	textview.pixels_below_lines = 4
 	
 
-	#creating two differents buttons, one for displaying into LCD and another for exiting
+	#creating three differents buttons, one for displaying into LCD, another for cleaning LCD screen to start writing something new and the last one for exiting the program
 	button = Gtk::Button.new :label => 'Display'
 	clear_button = Gtk::Button.new :label => 'Clear'
 	exiting_button = Gtk::Button.new(:label => "Exit")
 	
-	
+	#colouring the buttons, first we create a css provider and then we load the data of which color we want in each button. I've left the default color for the inital textview.
+	#when the mouse passes over, the button changes color into pastel green and when it is pressed it turn into coral
 	css_provider = Gtk::CssProvider.new
 	css_provider.load(data: "button:hover {background-color: honeydew;}\
                          button:active {background-color: lightcoral;}")
+			 
+	#we add the style on the buttons that we have previously created
 	button.style_context.add_provider(css_provider, Gtk::StyleProvider::PRIORITY_USER)
 	clear_button.style_context.add_provider(css_provider, Gtk::StyleProvider::PRIORITY_USER)
 	exiting_button.style_context.add_provider(css_provider, Gtk::StyleProvider::PRIORITY_USER)
 	
-	
+	#when button Display is being clicked it will display the text that has been written on the textview onto the LCD
 	button.signal_connect "clicked" do
 		lect_teclat(textview.buffer.text)
 	end
+	
+	#when button Exit is being clicked, it will quit the program
 	exiting_button.signal_connect "clicked" do
-     Gtk.main_quit
-	end
-	clear_button.signal_connect "clicked" do
-     clear
+     		Gtk.main_quit
 	end
 	
+	#when Clear button is bein pressed, it will clear LCD screen
+	clear_button.signal_connect "clicked" do
+     		clear
+	end
+	
+	#adding textview and buttons into the box
 	box.add(textview)
 	box.add(button)
 	box.add(clear_button)
 	box.add(exiting_button)
 	
+	#adding the box into the window
 	window.add(box)
+	
+	#if we close the window, it will quit the program
 	window.signal_connect('delete_event') {  |_widget| Gtk.main_quit }
+	
+	#showing all widgets we've created previously
 	window.show_all
  
 end
- 
+
+#calling window function
 window
+
 Gtk.main
