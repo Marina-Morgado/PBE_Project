@@ -1,21 +1,33 @@
 require 'i2c/drivers/ss1602'
-
+//creating object display 
 @dis = I2C::Drivers::SS1602::Display.new("/dev/i2c-1", 0x27)
 
 
 
-
+//function that will read string "texto"
   def lect_teclat(texto)
-
+  
+#it divides "texto" string each time \n is found and stores this piece of string into an array called "linies"
   @linies = texto.split("\n")
+  
   @dis.clear
   i=0
+  
+  #it prints array "linies"
   puts @linies.to_s
+  
+  #looping through linies
   for linia in @linies
-    linia = linia.gsub('\n','')
+      #everytime we come across "\n", it's deleted and it changes into an empty space
+      linia = linia.gsub('\n','')
       
-        puts "Linea: #{i} -> #{linia}"
-        @dis.text(linia.to_s, i)
-        i = i+1;
+      #it prints line number and its content
+      puts "Linea: #{i} -> #{linia}"
+        
+      #we display content on the LCD
+      @dis.text(linia.to_s, i)
+        
+      #we increase in order to change the row
+      i = i+1;
       end
     end
