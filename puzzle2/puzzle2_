@@ -2,13 +2,13 @@ require 'gtk3'
 require_relative "/home/pi/Desktop/pbe/puzzle1.rb" #loading puzzle_1 into puzzle_2
 
 
-
+#clear function for cleaning LCD screen
 def clear
 @dis.clear()
 end
 
 def window
-	
+	#creating window
 	window = Gtk::Window.new("TextView")
 	window.set_window_position Gtk::WindowPosition::CENTER
 	window.set_size_request(300, 200)
