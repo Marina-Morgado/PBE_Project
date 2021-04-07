@@ -1,0 +1,21 @@
+require 'i2c/drivers/ss1602'
+
+@dis = I2C::Drivers::SS1602::Display.new("/dev/i2c-1", 0x27)
+
+
+
+
+  def lect_teclat(texto)
+
+  @linies = texto.split("\n")
+  @dis.clear
+  i=0
+  puts @linies.to_s
+  for linia in @linies
+    linia = linia.gsub('\n','')
+      
+        puts "Linea: #{i} -> #{linia}"
+        @dis.text(linia.to_s, i)
+        i = i+1;
+      end
+    end
