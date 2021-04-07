@@ -65,7 +65,8 @@ def window
 	exiting_button.style_context.add_provider(css_provider, Gtk::StyleProvider::PRIORITY_USER)
 	
 	#when button Display is being clicked it will display the text that has been written on the textview onto the LCD, taking into account that we can write just 20 characters on each line
-	#we can not exceed that limit, so we must click Enter to change row
+	#we can not exceed that limit, so we must click Enter to change row if we exceed
+	#it is also known that we can only write 4 lines due to our LCD's size
 	button.signal_connect "clicked" do
 		lect_teclat(textview.buffer.text)
 	end
