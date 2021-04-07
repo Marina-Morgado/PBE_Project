@@ -27,7 +27,7 @@ def window
 	#cerating textview
 	textview = Gtk::TextView.new
 	
-	#allowing to write on it
+	#allowing to write on the textview
 	textview.editable =  true
 	
 	#setting margins of textview
@@ -48,7 +48,7 @@ def window
 	textview.pixels_below_lines = 4
 	
 
-	#creating three differents buttons, one for displaying into LCD, another for cleaning LCD screen to start writing something new and the last one for exiting the program
+	#creating three differents buttons, one for displaying the text into LCD, another for cleaning LCD screen to start writing something new and the last one for exiting the program
 	button = Gtk::Button.new :label => 'Display'
 	clear_button = Gtk::Button.new :label => 'Clear'
 	exiting_button = Gtk::Button.new(:label => "Exit")
@@ -64,7 +64,8 @@ def window
 	clear_button.style_context.add_provider(css_provider, Gtk::StyleProvider::PRIORITY_USER)
 	exiting_button.style_context.add_provider(css_provider, Gtk::StyleProvider::PRIORITY_USER)
 	
-	#when button Display is being clicked it will display the text that has been written on the textview onto the LCD
+	#when button Display is being clicked it will display the text that has been written on the textview onto the LCD, taking into account that we can write just 20 characters on each line
+	#we can not exceed that limit, so we must click Enter to change row
 	button.signal_connect "clicked" do
 		lect_teclat(textview.buffer.text)
 	end
